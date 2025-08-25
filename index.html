@@ -4,26 +4,75 @@
     <meta charset="UTF-8">
     <title>Contact Me</title>
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            color: #222222;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #bdae93;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .subtitle {
+            font-size: 0.9em;
+            color: #444444;
+            margin-top: 8px;
+        }
+
+        .icons {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px; /* Even spacing between icons */
+        }
+
         .icon {
             width: 40px;
             height: 40px;
-            margin: 10px;
+            transition: transform 0.2s;
+            display: block; /* Prevent inline image spacing issues */
+        }
+
+        a {
+            text-decoration: none;
+            outline: none;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
-    <h1>Connect with Me</h1>
-
-    <a href="https://github.com/djstillxyz" target="_blank">
-        <img class="icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
-    </a>
-
-    <a href="https://www.linkedin.com/in/derek-still/" target="_blank">
-        <img class="icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn">
-    </a>
-
-    <a href="mailto:contact@djstill.xyz">
-        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email">
-    </a>
+    <div class="container">
+        <h1>Derek J. Still</h1>
+        <p class="subtitle">Work In Progress Personal Website!</p>
+        <div class="icons">
+            <a href="https://github.com/djstillxyz" target="_blank">
+                <img class="icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+            </a>
+            <a href="https://www.linkedin.com/in/derek-still" target="_blank">
+                <img class="icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn">
+            </a>
+            <a href="mailto:contact@djstill.xyz">
+                <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email">
+            </a>
+        </div>
+    </div>
 </body>
 </html>
