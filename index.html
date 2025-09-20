@@ -174,10 +174,76 @@
   </div>
   <!-- Main Content -->
   <div class="content">
-    <div class="typewriter">Derek J. Still</div>
+    <div class="typewriter" id="typewriter">Derek J. Still</div>
     <div class="subtext">
       Website still in progress, check back later!
     </div>
   </div>
+
+  <script>
+    function restartTyping(newText) {
+      const typewriter = document.getElementById('typewriter');
+      
+      // Remove existing animation classes
+      typewriter.style.animation = 'none';
+      typewriter.style.width = '0';
+      typewriter.style.borderRight = '2px solid var(--accent)';
+      
+      // Update the text
+      typewriter.textContent = newText;
+      
+      // Calculate character count for animation
+      const charCount = newText.length;
+      
+      // Update CSS custom property for width animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes typing-dynamic {
+          from { width: 0 }
+          to { width: ${charCount}ch }
+        }
+      `;
+      
+      // Remove any existing dynamic styles
+      const existingStyle = document.getElementById('dynamic-typing-style');
+      if (existingStyle) {
+        existingStyle.remove();
+      }
+      
+      style.id = 'dynamic-typing-style';
+      document.head.appendChild(style);
+      
+      // Force reflow
+      typewriter.offsetHeight;
+      
+      // Restart animation with new timing
+      const typingDuration = Math.max(2, charCount * 0.1); // Minimum 2s, or 0.1s per character
+      typewriter.style.animation = `typing-dynamic ${typingDuration}s steps(${charCount}, end) forwards, blink 0.75s step-end infinite`;
+    }
+
+    // Add click event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      const homeLink = document.querySelector('a[href="index.html"]');
+      const contactLink = document.querySelector('a[href="contact/contact.html"]');
+      
+      homeLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        restartTyping('Derek J. Still');
+        
+        // Update active state
+        document.querySelectorAll('.nav-left a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+      });
+      
+      contactLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        restartTyping('contact@djstill.me'); // Replace with your actual email
+        
+        // Update active state
+        document.querySelectorAll('.nav-left a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
