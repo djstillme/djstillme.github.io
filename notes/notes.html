@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Notes - Derek J. Still</title>
+  <!-- Font Awesome for social media icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Gruvbox Color Palette */
+    :root {
+      --bg: rgba(40, 40, 40, 0.85);
+      --fg: #ebdbb2;
+      --accent: #fabd2f;
+      --muted: #a89984;
+      --link: #83a598;
+      --success: #b8bb26;
+      --warning: #fe8019;
+      --error: #fb4934;
+    }
+    
+    body {
+      background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: var(--fg);
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    
+    /* Background overlay for better text readability - MATCHED TO HOME PAGE */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: -1;
+    }
+    
+    /* Navbar Styles */
+    .navbar {
+      background-color: rgba(40, 40, 40, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+      box-sizing: border-box;
+    }
+    
+    .nav-left a {
+      color: var(--accent);
+      text-decoration: none;
+      margin-right: 20px;
+      font-size: 1em;
+      transition: color 0.3s;
+    }
+    
+    .nav-left a:hover {
+      color: var(--fg);
+      text-shadow: 0 0 5px var(--fg);
+    }
+    
+    .nav-left a.active {
+      color: var(--fg);
+      text-shadow: 0 0 5px var(--fg);
+    }
+    
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
+    
+    .nav-right a {
+      color: var(--link);
+      margin-left: 15px;
+      font-size: 1.2em;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    
+    .nav-right a:hover {
+      color: var(--accent);
+      text-shadow: 0 0 8px var(--accent);
+      transform: scale(1.1);
+    }
+    
+    /* Main Content */
+    .main-content {
+      padding: 40px 20px;
+      padding-top: 120px;
+      background: rgba(40, 40, 40, 0.4);
+      backdrop-filter: blur(5px);
+      min-height: 100vh;
+      width: 100%;
+    }
+    
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .page-title {
+      font-size: 2.5em;
+      color: var(--fg);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+    
+    .page-subtitle {
+      font-size: 1.2em;
+      color: var(--muted);
+      background: rgba(40, 40, 40, 0.7);
+      padding: 10px 20px;
+      border-radius: 20px;
+      display: inline-block;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(250, 189, 47, 0.3);
+    }
+    
+    /* Tiled Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      padding: 20px 0;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    /* Gallery Item */
+    .gallery-item {
+      background: rgba(40, 40, 40, 0.8);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 1px solid rgba(250, 189, 47, 0.2);
+      backdrop-filter: blur(15px);
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(250, 189, 47, 0.3);
+      border-color: var(--accent);
+    }
+    
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(250, 189, 47, 0.1), transparent);
+      transition: left 0.6s;
+      z-index: 1;
+    }
+    
+    .gallery-item:hover::before {
+      left: 100%;
+    }
+    
+    /* Gallery Item Image */
+    .gallery-image {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .gallery-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.4s ease;
+    }
+    
+    .gallery-item:hover .gallery-image img {
+      transform: scale(1.1);
+    }
+    
+    /* Gallery Item Content */
+    .gallery-content {
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .gallery-title {
+      font-size: 1.3em;
+      color: var(--fg);
+      margin-bottom: 10px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    
+    .gallery-item:hover .gallery-title {
+      color: var(--accent);
+    }
+    
+    .gallery-description {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 15px;
+      font-size: 0.95em;
+    }
+    
+    .gallery-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    
+    .gallery-tag {
+      background: rgba(131, 165, 152, 0.2);
+      color: var(--link);
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.8em;
+      border: 1px solid rgba(131, 165, 152, 0.3);
+      transition: all 0.3s;
+    }
+    
+    .gallery-item:hover .gallery-tag {
+      background: rgba(250, 189, 47, 0.2);
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+    
+    /* Filter Buttons */
+    .filter-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .filter-btn {
+      background: rgba(40, 40, 40, 0.7);
+      border: 1px solid rgba(250, 189, 47, 0.3);
+      color: var(--muted);
+      padding: 10px 20px;
+      margin: 0 5px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+      font-family: 'Courier New', monospace;
+    }
+    
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: rgba(250, 189, 47, 0.2);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(250, 189, 47, 0.3);
+    }
+    
+    /* PDF Preview Styles */
+    .pdf-preview {
+      position: relative;
+    }
+    
+    .pdf-preview::after {
+      content: 'PDF';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(251, 73, 52, 0.9);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.7em;
+      font-weight: bold;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .gallery-item:hover .pdf-preview::after {
+      background: rgba(251, 73, 52, 1);
+      transform: scale(1.1);
+      box-shadow: 0 2px 8px rgba(251, 73, 52, 0.4);
+    }
+
+    /* Loading Animation */
+    .loading {
+      opacity: 0;
+      animation: fadeIn 0.6s ease-in-out forwards;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      
+      .page-title {
+        font-size: 2em;
+      }
+      
+      .nav-left a, .nav-right a {
+        margin: 0 10px;
+        font-size: 0.9em;
+      }
+      
+      body {
+        background-attachment: scroll;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .main-content {
+        padding: 20px 15px;
+        padding-top: 100px;
+      }
+    }
+    
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+    }
+    
+    .modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    .modal-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      background: rgba(40, 40, 40, 0.95);
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid rgba(250, 189, 47, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    }
+    
+    .modal-image {
+      max-width: 100%;
+      max-height: 70vh;
+      display: block;
+      object-fit: contain;
+    }
+    
+    .modal-info {
+      padding: 20px;
+      background: rgba(40, 40, 40, 0.95);
+    }
+    
+    .modal-title {
+      color: var(--accent);
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    
+    .modal-description {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+    
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    
+    .modal-tags .gallery-tag {
+      background: rgba(131, 165, 152, 0.2);
+      border-color: rgba(131, 165, 152, 0.5);
+    }
+    
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: var(--fg);
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      background: rgba(40, 40, 40, 0.8);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      border: 1px solid rgba(250, 189, 47, 0.3);
+    }
+    
+    .close:hover {
+      color: var(--accent);
+      background: rgba(250, 189, 47, 0.2);
+      border-color: var(--accent);
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="nav-left">
+      <a href="index.html">Home</a>
+      <a href="projects/projects.html">Projects</a>
+      <a href="notes/notes.html" class="active">Notes</a>
+      <a href="gallery/gallery.html">Gallery</a>
+      <a href="contact/contact.html">Contact</a>
+      <a href="about/about.html">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://github.com/djstillme" target="_blank" aria-label="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/derek-still/" target="_blank" aria-label="LinkedIn">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="/rss.xml" target="_blank" aria-label="RSS Feed">
+        <i class="fas fa-rss"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Notes</h1>
+      <p class="page-subtitle">My collected notes. Will be uploaded here when they are in a finalized form.</p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="filter-container">
+      <button class="filter-btn active" onclick="filterItems('all')">All</button>
+      <button class="filter-btn" onclick="filterItems('physics')">Physics</button>
+      <button class="filter-btn" onclick="filterItems('mathematics')">Mathematics</button>
+      <button class="filter-btn" onclick="filterItems('engineering')">Engineering</button>
+      <button class="filter-btn" onclick="filterItems('computer-science')">Computer Science</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid">
+      <div class="gallery-item loading" data-category="physics" data-pdf="">
+        <div class="gallery-image pdf-preview">
+          <img src="images/classicalmechanics.jpg" alt="Classical Mechanics">
+        </div>
+        <div class="gallery-content">
+          <h3 class="gallery-title">Classical Mechanics</h3>
+          <p class="gallery-description">Newton's laws, Lagrangian, Hamiltonian, phase space, canonical transformations, conservation laws, rigid body dynamics.</p>
+          <div class="gallery-tags">
+            <span class="gallery-tag">Newton</span>
+            <span class="gallery-tag">Lagrange</span>
+            <span class="gallery-tag">Hamilton</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item loading" data-category="physics" data-pdf="">
+        <div class="gallery-image pdf-preview">
+          <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Classical Electrodynamics">
+        </div>
+        <div class="gallery-content">
+          <h3 class="gallery-title">Classical Electrodynamics</h3>
+          <p class="gallery-description">Charge, electric and magnetic fields, Maxwell's equations, potentials, gauge invariance, radiation, wave propagation.</p>
+          <div class="gallery-tags">
+            <span class="gallery-tag">Maxwell</span>
+            <span class="gallery-tag">Faraday</span>
+            <span class="gallery-tag">Ampère</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item loading" data-category="physics" data-pdf="">
+        <div class="gallery-image pdf-preview">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Quantum Mechanics">
+        </div>
+        <div class="gallery-content">
+          <h3 class="gallery-title">Quantum Mechanics</h3>
+          <p class="gallery-description">Uncertainty principle, Schrödinger's equation, angular momentum, spherical symmetry, spin, perturbation theory.</p>
+          <div class="gallery-tags">
+            <span class="gallery-tag">Bohr</span>
+            <span class="gallery-tag">Schrödinger</span>
+            <span class="gallery-tag">Dirac</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item loading" data-category="physics" data-pdf="">
+        <div class="gallery-image pdf-preview">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Statistical Mechanics">
+        </div>
+        <div class="gallery-content">
+          <h3 class="gallery-title">Statistical Mechanics & Thermodynamics</h3>
+          <p class="gallery-description">Microstates, ensembles, partition function, entropy, fluctuations, thermodynamic limit, phase transitions.</p>
+          <div class="gallery-tags">
+            <span class="gallery-tag">Boltzmann</span>
+            <span class="gallery-tag">Maxwell</span>
+            <span class="gallery-tag">Gibbs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item loading" data-category="mathematics" data-pdf="">
+        <div class="gallery-image pdf-preview">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Differential Geometry">
+        </div>
+        <div class="gallery-content">
+          <h3 class="gallery-title">Differential Geometry</h3>
+          <p class="gallery-description">Manifolds, tangent spaces, metrics, curvature, geodesics, connections, topology, fiber bundles, differential forms.</p>
+          <div class="gallery-tags">
+            <span class="gallery-tag">Gauss</span>
+            <span class="gallery-tag">Riemann</span>
+            <span class="gallery-tag">Cartan</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item loading" data-category="physics" data-pdf="">
+        <div class="gallery-image pdf-preview">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Classical Field Theory">
+        </div>
+        <div class="gallery-content">
+          <h3 class="gallery-title">Classical Field Theory</h3>
+          <p class="gallery-description">Lagrangian density, Euler–Lagrange equations, symmetries, Noether's theorem, conserved currents, gauge fields, stress-energy tensor.</p>
+          <div class="gallery-tags">
+            <span class="gallery-tag">Lagrange</span>
+            <span class="gallery-tag">Noether</span>
+            <span class="gallery-tag">Weyl</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item loading" data-category="physics" data-pdf="">
+        <div class="gallery-image pdf-preview">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="General Relativity">
+        </div>
+        <div class="gallery-content">
+          <h3 class="gallery-title">General Relativity</h3>
+          <p class="gallery-description">Spacetime, metric tensor, curvature, Einstein field equations, geodesics, energy-momentum, black holes.</p>
+          <div class="gallery-tags">
+            <span class="gallery-tag">Einstein</span>
+            <span class="gallery-tag">Schwarzschild</span>
+            <span class="gallery-tag">Hilbert</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item loading" data-category="engineering" data-pdf="">
+        <div class="gallery-image pdf-preview">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Nuclear Engineering">
+        </div>
+        <div class="gallery-content">
+          <h3 class="gallery-title">Nuclear Engineering</h3>
+          <p class="gallery-description">Fission, neutron transport, cross-sections, reactor kinetics, fuel cycles, radiation shielding, thermal hydraulics.</p>
+          <div class="gallery-tags">
+            <span class="gallery-tag">Fermi</span>
+            <span class="gallery-tag">Rickover</span>
+            <span class="gallery-tag">Meitner</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Filter functionality
+    function filterItems(category) {
+      const items = document.querySelectorAll('.gallery-item');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      // Update active button
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Filter items
+      items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.style.display = 'block';
+          item.style.animation = 'fadeIn 0.6s ease-in-out';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Modal functionality
+    function openModal(imageSrc, title, description, tags) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDescription = document.getElementById('modalDescription');
+      const modalTags = document.getElementById('modalTags');
+      
+      modalImage.src = imageSrc;
+      modalImage.alt = title;
+      modalTitle.textContent = title;
+      modalDescription.textContent = description;
+      
+      // Clear and populate tags
+      modalTags.innerHTML = '';
+      tags.forEach(tag => {
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'gallery-tag';
+        tagSpan.textContent = tag;
+        modalTags.appendChild(tagSpan);
+      });
+      
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden'; // Prevent body scroll
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('show');
+      document.body.style.overflow = ''; // Restore body scroll
+    }
+
+    // Add loading animation on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const items = document.querySelectorAll('.gallery-item');
+      items.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.1}s`;
+      });
+    });
+
+    // Add click handlers for gallery items to open PDFs
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const pdfUrl = this.dataset.pdf;
+        if (pdfUrl) {
+          // Open PDF in a new tab
+          window.open(pdfUrl, '_blank');
+        }
+      });
+    });
+
+    // Close modal when clicking outside the modal content
+    if (document.getElementById('imageModal')) {
+      document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeModal();
+        }
+      });
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
