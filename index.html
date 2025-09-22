@@ -14,6 +14,9 @@
       --muted: #a89984;
       --link: #83a598;
     }
+    html {
+      background-color: #282828; /* Dark gruvbox background */
+    }
     body {
       background-image: url('woods.jpg');
       background-size: cover;
@@ -149,7 +152,7 @@
     }
   </style>
 </head>
-<body id="body" style="display:none">
+<body>
   <!-- Navigation Bar -->
   <div class="navbar">
     <div class="nav-left">
@@ -179,13 +182,5 @@
       Website still in progress, check back later!
     </div>
   </div>
-
-  <script type="text/javascript">
-    window.onload = function () {
-        setTimeout(function() {
-            document.getElementById("body").style.display = "";        
-        }, 200);
-    }
-  </script>
 </body>
 </html>
