@@ -18,6 +18,12 @@
       --warning: #fe8019;
       --error: #fb4934;
     }
+    
+    /* Prevent white flash by setting initial background */
+    html {
+      background-color: #1d2021;
+    }
+    
     body {
       background-image: url('/woods.jpg');
       background-size: cover;
@@ -29,6 +35,21 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
+      /* Create a dark base layer that won't interfere with the image */
+      position: relative;
+    }
+    
+    /* Add a dark background layer that sits behind everything but above html */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #1d2021;
+      z-index: -2;
+      pointer-events: none;
     }
     
     /* Background overlay for better text readability - MATCHED TO HOME PAGE */
