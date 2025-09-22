@@ -5,10 +5,6 @@
   <title>Derek J. Still</title>
   <!-- Font Awesome for social media icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Preload the background image -->
-  <link rel="preload" href="woods.jpg" as="image">
-  
   <style>
     /* Gruvbox Color Palette */
     :root {
@@ -18,14 +14,7 @@
       --muted: #a89984;
       --link: #83a598;
     }
-    
-    /* Set initial background color to prevent white flash */
-    html {
-      background-color: #282828; /* Dark gruvbox background */
-    }
-    
     body {
-      background-color: #282828; /* Fallback color while image loads */
       background-image: url('woods.jpg');
       background-size: cover;
       background-position: center;
@@ -36,10 +25,7 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      /* Smooth transition when background loads */
-      transition: background-image 0.3s ease-in-out;
     }
-    
     /* Background overlay for better text readability */
     body::before {
       content: '';
@@ -51,17 +37,6 @@
       background: rgba(0, 0, 0, 0.3);
       z-index: -1;
     }
-    
-    /* Loading state - hide content until background is ready */
-    body.loading .content {
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-    }
-    
-    body.loaded .content {
-      opacity: 1;
-    }
-    
     /* Navbar Styles */
     .navbar {
       background-color: rgba(40, 40, 40, 0.7);
@@ -174,7 +149,7 @@
     }
   </style>
 </head>
-<body class="loading">
+<body id="body" style="display:none">
   <!-- Navigation Bar -->
   <div class="navbar">
     <div class="nav-left">
@@ -205,49 +180,12 @@
     </div>
   </div>
 
-  <script>
-    // Preload background image and handle loading states
-    function preloadBackground() {
-      const img = new Image();
-      img.onload = function() {
-        document.body.classList.remove('loading');
-        document.body.classList.add('loaded');
-      };
-      img.src = 'woods.jpg';
+  <script type="text/javascript">
+    window.onload = function () {
+        setTimeout(function() {
+            document.getElementById("body").style.display = "";        
+        }, 200);
     }
-
-    // Start preloading when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', preloadBackground);
-    } else {
-      preloadBackground();
-    }
-
-    // Cache the image in localStorage for subsequent page loads
-    function cacheBackgroundImage() {
-      if (!localStorage.getItem('woods-bg-cached')) {
-        fetch('woods.jpg')
-          .then(response => response.blob())
-          .then(blob => {
-            const reader = new FileReader();
-            reader.onload = function() {
-              localStorage.setItem('woods-bg-data', reader.result);
-              localStorage.setItem('woods-bg-cached', 'true');
-            };
-            reader.readAsDataURL(blob);
-          })
-          .catch(err => console.log('Background caching failed:', err));
-      } else {
-        // Use cached version
-        const cachedData = localStorage.getItem('woods-bg-data');
-        if (cachedData) {
-          document.body.style.backgroundImage = `url(${cachedData})`;
-        }
-      }
-    }
-
-    // Initialize caching
-    cacheBackgroundImage();
   </script>
 </body>
 </html>
