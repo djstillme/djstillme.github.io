@@ -117,113 +117,94 @@
       backdrop-filter: blur(5px);
     }
     
-    /* Typewriter List Container */
-    .typewriter-list {
+    /* Glitch Text Container */
+    .glitch-list {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 20px;
     }
     
-    /* Typewriter Text */
-    .typewriter {
-      overflow: hidden;
-      border-right: 2px solid var(--accent);
-      white-space: nowrap;
-      width: 0;
+    /* Glitch Text Effect */
+    .glitch-text {
       font-size: 1.8em;
       color: var(--fg);
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      position: relative;
       opacity: 0;
+      transform: translateX(-100px);
+      filter: blur(10px);
     }
     
-    /* Individual typewriter animations with delays */
-    .typewriter:nth-child(1) {
-      animation: typing 3s steps(30, end) 0s forwards,
-                 blink 0.75s step-end 0s 4,
-                 fadeIn 0.1s 0s forwards,
-                 removeCursor 0.1s 3s forwards;
+    /* Staggered entrance animations */
+    .glitch-text:nth-child(1) {
+      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards,
+                 glitchEffect 0.3s 1.4s;
     }
     
-    .typewriter:nth-child(2) {
-      animation: typing 3s steps(30, end) 0.8s forwards,
-                 blink 0.75s step-end 0.8s 4,
-                 fadeIn 0.1s 0.8s forwards,
-                 removeCursor 0.1s 3.8s forwards;
+    .glitch-text:nth-child(2) {
+      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards,
+                 glitchEffect 0.3s 1.7s;
     }
     
-    .typewriter:nth-child(3) {
-      animation: typing 3s steps(30, end) 1.6s forwards,
-                 blink 0.75s step-end 1.6s 4,
-                 fadeIn 0.1s 1.6s forwards,
-                 removeCursor 0.1s 4.6s forwards;
+    .glitch-text:nth-child(3) {
+      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards,
+                 glitchEffect 0.3s 2s;
     }
     
-    .typewriter:nth-child(4) {
-      animation: typing 3s steps(30, end) 2.4s forwards,
-                 blink 0.75s step-end 2.4s 4,
-                 fadeIn 0.1s 2.4s forwards,
-                 removeCursor 0.1s 5.4s forwards;
+    .glitch-text:nth-child(4) {
+      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.1s forwards,
+                 glitchEffect 0.3s 2.3s;
     }
     
-    .typewriter:nth-child(5) {
-      animation: typing 3s steps(30, end) 3.2s forwards,
-                 blink 0.75s step-end 3.2s 4,
-                 fadeIn 0.1s 3.2s forwards,
-                 removeCursor 0.1s 6.2s forwards;
+    .glitch-text:nth-child(5) {
+      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s forwards,
+                 glitchEffect 0.3s 2.6s;
     }
     
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    /* Slide in with deblur */
+    @keyframes glitchIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-100px);
+        filter: blur(10px);
+      }
+      50% {
+        filter: blur(2px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+      }
     }
     
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
+    /* Quick glitch pulse at the end */
+    @keyframes glitchEffect {
+      0%, 100% {
+        transform: translate(0);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      }
+      25% {
+        transform: translate(-3px, 2px);
+        text-shadow: 3px 0 var(--accent), -3px 0 var(--link);
+      }
+      50% {
+        transform: translate(3px, -2px);
+        text-shadow: -3px 0 var(--accent), 3px 0 var(--link);
+      }
+      75% {
+        transform: translate(-2px, -2px);
+        text-shadow: 2px 0 var(--accent), -2px 0 var(--link);
+      }
     }
     
-    @keyframes blink {
-      from, to { border-color: transparent }
-      50% { border-color: var(--accent); }
-    }
-    
-    /* Remove cursor after typing is complete */
-    .typewriter:nth-child(1) {
-      animation: typing 3s steps(30, end) 0s forwards,
-                 blink 0.75s step-end 0s 4,
-                 fadeIn 0.1s 0s forwards,
-                 removeCursor 0.1s 3s forwards;
-    }
-    
-    .typewriter:nth-child(2) {
-      animation: typing 3s steps(30, end) 0.8s forwards,
-                 blink 0.75s step-end 0.8s 4,
-                 fadeIn 0.1s 0.8s forwards,
-                 removeCursor 0.1s 3.8s forwards;
-    }
-    
-    .typewriter:nth-child(3) {
-      animation: typing 3s steps(30, end) 1.6s forwards,
-                 blink 0.75s step-end 1.6s 4,
-                 fadeIn 0.1s 1.6s forwards,
-                 removeCursor 0.1s 4.6s forwards;
-    }
-    
-    .typewriter:nth-child(4) {
-      animation: typing 3s steps(30, end) 2.4s forwards,
-                 blink 0.75s step-end 2.4s 4,
-                 fadeIn 0.1s 2.4s forwards,
-                 removeCursor 0.1s 5.4s forwards;
-    }
-    
-    .typewriter:nth-child(5) {
-      animation: typing 3s steps(30, end) 3.2s forwards,
-                 blink 0.75s step-end 3.2s 4,
-                 fadeIn 0.1s 3.2s forwards,
-                 removeCursor 0.1s 6.2s forwards;
-    }
-    
-    @keyframes removeCursor {
-      to { border-right: none; }
+    /* Hover effect - gentle glow */
+    .glitch-text:hover {
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent),
+                   0 0 20px var(--accent),
+                   2px 2px 4px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s ease;
     }
     
     /* Loading indicator */
@@ -251,13 +232,13 @@
         font-size: 0.9em;
       }
       
-      .typewriter {
+      .glitch-text {
         font-size: 1.2em;
       }
       
-      .typewriter-list {
+      .glitch-list {
         margin: 0 10px;
-        padding: 15px;
+        gap: 15px;
       }
       
       body {
@@ -298,12 +279,12 @@
   
   <!-- Main Content -->
   <div class="content">
-    <div class="typewriter-list">
-      <div class="typewriter">contact@djstill.me</div>
-      <div class="typewriter">GitHub: djstillme</div>
-      <div class="typewriter">LinkedIn: derek-still</div>
-      <div class="typewriter">Location: Michigan, US</div>
-      <div class="typewriter">Open to opportunities</div>
+    <div class="glitch-list">
+      <div class="glitch-text">contact@djstill.me</div>
+      <div class="glitch-text">GitHub: djstillme</div>
+      <div class="glitch-text">LinkedIn: derek-still</div>
+      <div class="glitch-text">Location: Michigan, US</div>
+      <div class="glitch-text">Open to opportunities</div>
     </div>
   </div>
 
