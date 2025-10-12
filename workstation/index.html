@@ -8,6 +8,26 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preload" href="/woods.jpg" as="image">
   <style>
+    
+    /* Quick glitch pulse at the end */
+    @keyframes glitchEffect {
+      0%, 100% {
+        transform: translate(0);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      }
+      25% {
+        transform: translate(-3px, 2px);
+        text-shadow: 3px 0 var(--accent), -3px 0 var(--link);
+      }
+      50% {
+        transform: translate(3px, -2px);
+        text-shadow: -3px 0 var(--accent), 3px 0 var(--link);
+      }
+      75% {
+        transform: translate(-2px, -2px);
+        text-shadow: 2px 0 var(--accent), -2px 0 var(--link);
+      }
+    }
     /* Initial background to prevent white flash */
     body:not(.loaded) {
       background-color: #1a1a1a !important;
@@ -137,28 +157,23 @@
     
     /* Staggered entrance animations */
     .glitch-text:nth-child(1) {
-      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards,
-                 glitchEffect 0.3s 1.4s;
+      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
     }
     
     .glitch-text:nth-child(2) {
-      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards,
-                 glitchEffect 0.3s 1.7s;
+      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
     }
     
     .glitch-text:nth-child(3) {
-      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards,
-                 glitchEffect 0.3s 2s;
+      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
     }
     
     .glitch-text:nth-child(4) {
-      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.1s forwards,
-                 glitchEffect 0.3s 2.3s;
+      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.1s forwards;
     }
     
     .glitch-text:nth-child(5) {
-      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s forwards,
-                 glitchEffect 0.3s 2.6s;
+      animation: glitchIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s forwards;
     }
     
     /* Slide in with deblur */
@@ -205,6 +220,59 @@
                    0 0 20px var(--accent),
                    2px 2px 4px rgba(0, 0, 0, 0.7);
       transition: all 0.3s ease;
+    }
+    
+    /* Social Icons below text */
+    .social-icons {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    
+    .social-icons a {
+      color: var(--link);
+      font-size: 3em;
+      transition: all 0.3s;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(30px);
+      filter: blur(10px);
+    }
+    
+    /* Animate social icons */
+    .social-icons a:nth-child(1) {
+      animation: slideInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.7s forwards;
+    }
+    
+    .social-icons a:nth-child(2) {
+      animation: slideInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2s forwards;
+    }
+    
+    .social-icons a:nth-child(3) {
+      animation: slideInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2.3s forwards;
+    }
+    
+    @keyframes slideInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(10px);
+      }
+      50% {
+        filter: blur(2px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+    
+    .social-icons a:hover {
+      color: var(--accent);
+      text-shadow: 0 0 15px var(--accent),
+                   0 0 30px var(--accent);
+      transform: translateY(-5px) scale(1.1);
     }
     
     /* Loading indicator */
@@ -283,8 +351,19 @@
       <div class="glitch-text">contact@djstill.me</div>
       <div class="glitch-text">GitHub: djstillme</div>
       <div class="glitch-text">LinkedIn: derek-still</div>
-      <div class="glitch-text">Location: Michigan, US</div>
-      <div class="glitch-text">Open to opportunities</div>
+    </div>
+    
+    <!-- Social Icons -->
+    <div class="social-icons">
+      <a href="https://github.com/djstillme" target="_blank" aria-label="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/derek-still/" target="_blank" aria-label="LinkedIn">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="/rss.xml" target="_blank" aria-label="RSS Feed">
+        <i class="fas fa-rss"></i>
+      </a>
     </div>
   </div>
 
