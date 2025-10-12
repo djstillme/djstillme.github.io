@@ -117,23 +117,68 @@
       backdrop-filter: blur(5px);
     }
     
+    /* Typewriter List Container */
+    .typewriter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
     /* Typewriter Text */
     .typewriter {
       overflow: hidden;
       border-right: 2px solid var(--accent);
       white-space: nowrap;
       width: 0;
-      animation: typing 4s steps(30, end) forwards,
-                 blink 0.75s step-end infinite;
       font-size: 1.8em;
       color: var(--fg);
-      margin-bottom: 20px;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      opacity: 0;
+    }
+    
+    /* Individual typewriter animations with delays */
+    .typewriter:nth-child(1) {
+      animation: typing 3s steps(30, end) 0s forwards,
+                 blink 0.75s step-end 0s 4,
+                 fadeIn 0.1s 0s forwards,
+                 removeCursor 0.1s 3s forwards;
+    }
+    
+    .typewriter:nth-child(2) {
+      animation: typing 3s steps(30, end) 0.8s forwards,
+                 blink 0.75s step-end 0.8s 4,
+                 fadeIn 0.1s 0.8s forwards,
+                 removeCursor 0.1s 3.8s forwards;
+    }
+    
+    .typewriter:nth-child(3) {
+      animation: typing 3s steps(30, end) 1.6s forwards,
+                 blink 0.75s step-end 1.6s 4,
+                 fadeIn 0.1s 1.6s forwards,
+                 removeCursor 0.1s 4.6s forwards;
+    }
+    
+    .typewriter:nth-child(4) {
+      animation: typing 3s steps(30, end) 2.4s forwards,
+                 blink 0.75s step-end 2.4s 4,
+                 fadeIn 0.1s 2.4s forwards,
+                 removeCursor 0.1s 5.4s forwards;
+    }
+    
+    .typewriter:nth-child(5) {
+      animation: typing 3s steps(30, end) 3.2s forwards,
+                 blink 0.75s step-end 3.2s 4,
+                 fadeIn 0.1s 3.2s forwards,
+                 removeCursor 0.1s 6.2s forwards;
+    }
+    
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
     
     @keyframes typing {
       from { width: 0 }
-      to { width: 18ch } /* Adjust to match text length */
+      to { width: 100% }
     }
     
     @keyframes blink {
@@ -141,17 +186,44 @@
       50% { border-color: var(--accent); }
     }
     
-    /* Subtext below the typewriter */
-    .subtext {
-      font-size: 1em;
-      color: var(--muted);
-      max-width: 600px;
-      padding: 20px;
-      background: rgba(40, 40, 40, 0.7);
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-      border: 1px solid rgba(250, 189, 47, 0.3);
+    /* Remove cursor after typing is complete */
+    .typewriter:nth-child(1) {
+      animation: typing 3s steps(30, end) 0s forwards,
+                 blink 0.75s step-end 0s 4,
+                 fadeIn 0.1s 0s forwards,
+                 removeCursor 0.1s 3s forwards;
+    }
+    
+    .typewriter:nth-child(2) {
+      animation: typing 3s steps(30, end) 0.8s forwards,
+                 blink 0.75s step-end 0.8s 4,
+                 fadeIn 0.1s 0.8s forwards,
+                 removeCursor 0.1s 3.8s forwards;
+    }
+    
+    .typewriter:nth-child(3) {
+      animation: typing 3s steps(30, end) 1.6s forwards,
+                 blink 0.75s step-end 1.6s 4,
+                 fadeIn 0.1s 1.6s forwards,
+                 removeCursor 0.1s 4.6s forwards;
+    }
+    
+    .typewriter:nth-child(4) {
+      animation: typing 3s steps(30, end) 2.4s forwards,
+                 blink 0.75s step-end 2.4s 4,
+                 fadeIn 0.1s 2.4s forwards,
+                 removeCursor 0.1s 5.4s forwards;
+    }
+    
+    .typewriter:nth-child(5) {
+      animation: typing 3s steps(30, end) 3.2s forwards,
+                 blink 0.75s step-end 3.2s 4,
+                 fadeIn 0.1s 3.2s forwards,
+                 removeCursor 0.1s 6.2s forwards;
+    }
+    
+    @keyframes removeCursor {
+      to { border-right: none; }
     }
     
     /* Loading indicator */
@@ -183,9 +255,9 @@
         font-size: 1.2em;
       }
       
-      .subtext {
-        font-size: 0.9em;
+      .typewriter-list {
         margin: 0 10px;
+        padding: 15px;
       }
       
       body {
@@ -226,9 +298,12 @@
   
   <!-- Main Content -->
   <div class="content">
-    <div class="typewriter" id="typewriter">contact@djstill.me</div>
-    <div class="subtext">
-      Website still in progress, check back later!
+    <div class="typewriter-list">
+      <div class="typewriter">contact@djstill.me</div>
+      <div class="typewriter">GitHub: djstillme</div>
+      <div class="typewriter">LinkedIn: derek-still</div>
+      <div class="typewriter">Location: Michigan, US</div>
+      <div class="typewriter">Open to opportunities</div>
     </div>
   </div>
 
