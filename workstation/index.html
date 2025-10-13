@@ -3,18 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Derek J. Still - Workstation</title>
-  <!-- Font Awesome for icons -->
+  <title>Derek J. Still - Setup</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preload" href="/woods.jpg" as="image">
   <style>
-    /* Initial background to prevent white flash */
-    body:not(.loaded) {
-      background-color: #1a1a1a !important;
-      background-image: none !important;
-    }
-    
-    /* Gruvbox Color Palette */
     :root {
       --bg: rgba(40, 40, 40, 0.85);
       --fg: #ebdbb2;
@@ -30,8 +21,13 @@
       box-sizing: border-box;
     }
     
+    body:not(.loaded) {
+      background-color: #1a1a1a !important;
+      background-image: none !important;
+    }
+    
     body {
-      background-image: url('/woods.jpg');
+      background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -42,7 +38,6 @@
       transition: background-color 0.5s ease;
     }
     
-    /* Background overlay for better text readability */
     body::before {
       content: '';
       position: fixed;
@@ -54,19 +49,6 @@
       z-index: -1;
     }
     
-    /* Additional content overlay */
-    .content-overlay {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      height: calc(100% - 60px);
-      background: rgba(40, 40, 40, 0.4);
-      backdrop-filter: blur(5px);
-      z-index: 0;
-    }
-    
-    /* Navbar Styles */
     .navbar {
       background-color: rgba(40, 40, 40, 0.7);
       backdrop-filter: blur(10px);
@@ -118,168 +100,6 @@
       transform: scale(1.1);
     }
     
-    /* Main Container */
-    .container {
-      padding: 100px 40px 40px;
-      max-width: 1400px;
-      margin: 0 auto;
-      background: rgba(40, 40, 40, 0.3);
-      backdrop-filter: blur(8px);
-      min-height: calc(100vh - 60px);
-    }
-    
-    /* Header Section */
-    .header {
-      text-align: center;
-      margin-bottom: 60px;
-      opacity: 0;
-      animation: fadeInDown 1s ease forwards;
-    }
-    
-    .header h1 {
-      font-size: 3em;
-      color: var(--accent);
-      margin-bottom: 10px;
-      text-shadow: 0 0 20px rgba(250, 189, 47, 0.5);
-    }
-    
-    .header p {
-      font-size: 1.2em;
-      color: var(--muted);
-    }
-    
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    /* Two Column Layout */
-    .columns {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 40px;
-    }
-    
-    .column {
-      opacity: 0;
-      transform: translateX(-50px);
-      filter: blur(5px);
-    }
-    
-    .column.left {
-      animation: slideInLeft 1s ease 0.3s forwards;
-    }
-    
-    .column.right {
-      animation: slideInRight 1s ease 0.3s forwards;
-    }
-    
-    @keyframes slideInLeft {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-        filter: blur(0);
-      }
-    }
-    
-    @keyframes slideInRight {
-      from {
-        transform: translateX(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-        filter: blur(0);
-      }
-    }
-    
-    .column-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 30px;
-      padding-bottom: 15px;
-      border-bottom: 2px solid var(--accent);
-    }
-    
-    .column-header i {
-      font-size: 2em;
-      color: var(--accent);
-    }
-    
-    .column-header h2 {
-      font-size: 2em;
-      color: var(--fg);
-    }
-    
-    /* Card Styles */
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(250, 189, 47, 0.2);
-      border-radius: 10px;
-      padding: 25px;
-      margin-bottom: 25px;
-      transition: all 0.3s ease;
-    }
-    
-    .card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 20px rgba(250, 189, 47, 0.3);
-      transform: translateY(-5px);
-    }
-    
-    .card h3 {
-      color: var(--accent);
-      font-size: 1.5em;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .card h3 i {
-      font-size: 0.8em;
-    }
-    
-    .card-content {
-      color: var(--fg);
-      line-height: 1.8;
-    }
-    
-    .spec-list {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .spec-list li {
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(250, 189, 47, 0.1);
-    }
-    
-    .spec-list li:last-child {
-      border-bottom: none;
-    }
-    
-    .spec-label {
-      color: var(--accent);
-      font-weight: bold;
-      display: inline-block;
-      min-width: 120px;
-    }
-    
-    .spec-value {
-      color: var(--fg);
-    }
-    
-    /* Loading indicator */
     .loading-indicator {
       position: fixed;
       top: 50%;
@@ -297,33 +117,157 @@
       pointer-events: none;
     }
     
-    /* Responsive Design */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 20px 40px;
+    }
+    
+    .page-title {
+      text-align: center;
+      font-size: 2.5em;
+      color: var(--accent);
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    
+    .page-subtitle {
+      text-align: center;
+      font-size: 1.1em;
+      color: var(--muted);
+      margin-bottom: 50px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+    
+    .columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .column {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      border: 1px solid rgba(250, 189, 47, 0.3);
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .column-header {
+      font-size: 2em;
+      color: var(--accent);
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid rgba(250, 189, 47, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .column-header i {
+      font-size: 0.9em;
+    }
+    
+    .section {
+      margin-bottom: 35px;
+    }
+    
+    .section:last-child {
+      margin-bottom: 0;
+    }
+    
+    .section-title {
+      font-size: 1.4em;
+      color: var(--link);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .section-title i {
+      font-size: 0.8em;
+      color: var(--accent);
+    }
+    
+    .section-content {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+      line-height: 1.8;
+      min-height: 120px;
+    }
+    
+    .item {
+      margin-bottom: 12px;
+      padding-left: 20px;
+      position: relative;
+    }
+    
+    .item:before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    
+    .item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .spec-label {
+      color: var(--accent);
+      font-weight: bold;
+    }
+    
+    .placeholder-text {
+      color: var(--muted);
+      font-style: italic;
+      text-align: center;
+      padding: 20px;
+    }
+    
     @media (max-width: 1024px) {
       .columns {
         grid-template-columns: 1fr;
       }
       
-      .column.right {
-        animation: slideInLeft 1s ease 0.6s forwards;
+      .page-title {
+        font-size: 2em;
       }
     }
     
     @media (max-width: 600px) {
-      .container {
-        padding: 80px 20px 20px;
-      }
-      
-      .header h1 {
-        font-size: 2em;
-      }
-      
-      .column-header h2 {
-        font-size: 1.5em;
-      }
-      
       .nav-left a, .nav-right a {
         margin: 0 10px;
         font-size: 0.9em;
+      }
+      
+      .container {
+        padding: 80px 15px 30px;
+      }
+      
+      .page-title {
+        font-size: 1.6em;
+      }
+      
+      .page-subtitle {
+        font-size: 0.9em;
+      }
+      
+      .column {
+        padding: 20px;
+      }
+      
+      .column-header {
+        font-size: 1.5em;
+      }
+      
+      .section-title {
+        font-size: 1.2em;
       }
       
       body {
@@ -333,20 +277,17 @@
   </style>
 </head>
 <body>
-  <!-- Loading Indicator -->
   <div class="loading-indicator" id="loadingIndicator">
     <i class="fas fa-spinner fa-spin"></i>
   </div>
   
-  <!-- Navigation Bar -->
   <div class="navbar">
     <div class="nav-left">
       <a href="/">Home</a>
       <a href="/projects">Projects</a>
       <a href="/notes">Notes</a>
       <a href="/gallery">Gallery</a>
-      <a href="/contact" class="active">Workstation</a>
-      <a href="/gallery">Contact</a>
+      <a href="/contact">Contact</a>
       <a href="/about">About</a>
     </div>
     <div class="nav-right">
@@ -362,110 +303,127 @@
     </div>
   </div>
   
-  <!-- Main Container -->
   <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <h1>My Workstation</h1>
-      <p>Hardware & Software Setup</p>
-    </div>
+    <h1 class="page-title">My Setup</h1>
+    <p class="page-subtitle">Hardware and software that powers my work</p>
     
-    <!-- Two Column Layout -->
     <div class="columns">
       <!-- Hardware Column -->
-      <div class="column left">
+      <div class="column">
         <div class="column-header">
-          <i class="fas fa-server"></i>
-          <h2>Hardware</h2>
+          <i class="fas fa-microchip"></i>
+          Hardware
         </div>
         
-        <!-- PC Setup Card -->
-        <div class="card">
-          <h3><i class="fas fa-desktop"></i> Main PC</h3>
-          <div class="card-content">
-            <ul class="spec-list">
-              <li><span class="spec-label">CPU:</span> <span class="spec-value">AMD Ryzen 9 5900X</span></li>
-              <li><span class="spec-label">GPU:</span> <span class="spec-value">NVIDIA RTX 3080</span></li>
-              <li><span class="spec-label">RAM:</span> <span class="spec-value">32GB DDR4 3600MHz</span></li>
-              <li><span class="spec-label">Storage:</span> <span class="spec-value">1TB NVMe SSD</span></li>
-              <li><span class="spec-label">Motherboard:</span> <span class="spec-value">ASUS ROG Strix X570-E</span></li>
-            </ul>
+        <!-- Homelab Section -->
+        <div class="section">
+          <div class="section-title">
+            <i class="fas fa-server"></i>
+            Homelab
+          </div>
+          <div class="section-content">
+            <div class="placeholder-text">Add your homelab specs here</div>
+            <!-- Example structure:
+            <div class="item"><span class="spec-label">Server:</span> Dell PowerEdge R720</div>
+            <div class="item"><span class="spec-label">CPU:</span> 2x Intel Xeon E5-2670</div>
+            <div class="item"><span class="spec-label">RAM:</span> 128GB DDR3 ECC</div>
+            <div class="item"><span class="spec-label">Storage:</span> 8x 4TB HDDs (RAID 10)</div>
+            <div class="item"><span class="spec-label">Network:</span> Ubiquiti Dream Machine Pro</div>
+            -->
           </div>
         </div>
         
-        <!-- Homelab Card -->
-        <div class="card">
-          <h3><i class="fas fa-network-wired"></i> Homelab</h3>
-          <div class="card-content">
-            <ul class="spec-list">
-              <li><span class="spec-label">Server:</span> <span class="spec-value">Dell PowerEdge R720</span></li>
-              <li><span class="spec-label">CPU:</span> <span class="spec-value">2x Xeon E5-2670</span></li>
-              <li><span class="spec-label">RAM:</span> <span class="spec-value">128GB ECC</span></li>
-              <li><span class="spec-label">Storage:</span> <span class="spec-value">4x 4TB HDD RAID 10</span></li>
-              <li><span class="spec-label">Network:</span> <span class="spec-value">10Gbe Connectivity</span></li>
-            </ul>
+        <!-- PC Setup Section -->
+        <div class="section">
+          <div class="section-title">
+            <i class="fas fa-desktop"></i>
+            PC Setup
+          </div>
+          <div class="section-content">
+            <div class="placeholder-text">Add your PC specs here</div>
+            <!-- Example structure:
+            <div class="item"><span class="spec-label">CPU:</span> AMD Ryzen 9 5900X</div>
+            <div class="item"><span class="spec-label">GPU:</span> NVIDIA RTX 3080</div>
+            <div class="item"><span class="spec-label">RAM:</span> 32GB DDR4 3600MHz</div>
+            <div class="item"><span class="spec-label">Storage:</span> 1TB NVMe SSD + 2TB SATA SSD</div>
+            <div class="item"><span class="spec-label">Monitor:</span> 27" 1440p 144Hz</div>
+            <div class="item"><span class="spec-label">Keyboard:</span> Custom mechanical</div>
+            <div class="item"><span class="spec-label">Mouse:</span> Logitech G Pro Wireless</div>
+            -->
           </div>
         </div>
         
-        <!-- Peripherals Card -->
-        <div class="card">
-          <h3><i class="fas fa-keyboard"></i> Peripherals</h3>
-          <div class="card-content">
-            <ul class="spec-list">
-              <li><span class="spec-label">Keyboard:</span> <span class="spec-value">Custom Mechanical</span></li>
-              <li><span class="spec-label">Mouse:</span> <span class="spec-value">Logitech G Pro Wireless</span></li>
-              <li><span class="spec-label">Monitor:</span> <span class="spec-value">27" 1440p 165Hz</span></li>
-              <li><span class="spec-label">Headset:</span> <span class="spec-value">Audio-Technica ATH-M50x</span></li>
-            </ul>
+        <!-- Peripherals Section (Optional) -->
+        <div class="section">
+          <div class="section-title">
+            <i class="fas fa-keyboard"></i>
+            Peripherals
+          </div>
+          <div class="section-content">
+            <div class="placeholder-text">Add your peripherals here</div>
+            <!-- Example structure:
+            <div class="item"><span class="spec-label">Audio:</span> Audio-Technica ATH-M50x</div>
+            <div class="item"><span class="spec-label">Microphone:</span> Blue Yeti</div>
+            <div class="item"><span class="spec-label">Webcam:</span> Logitech C920</div>
+            -->
           </div>
         </div>
       </div>
       
       <!-- Software Column -->
-      <div class="column right">
+      <div class="column">
         <div class="column-header">
           <i class="fas fa-code"></i>
-          <h2>Software</h2>
+          Software
         </div>
         
-        <!-- Operating Systems Card -->
-        <div class="card">
-          <h3><i class="fab fa-linux"></i> Operating Systems</h3>
-          <div class="card-content">
-            <ul class="spec-list">
-              <li><span class="spec-label">Main OS:</span> <span class="spec-value">Arch Linux (btw)</span></li>
-              <li><span class="spec-label">Server:</span> <span class="spec-value">Proxmox VE</span></li>
-              <li><span class="spec-label">Desktop:</span> <span class="spec-value">GNOME / i3wm</span></li>
-              <li><span class="spec-label">Shell:</span> <span class="spec-value">Zsh with Oh-My-Zsh</span></li>
-            </ul>
+        <!-- Operating System Section -->
+        <div class="section">
+          <div class="section-title">
+            <i class="fab fa-linux"></i>
+            Operating System
+          </div>
+          <div class="section-content">
+            <div class="placeholder-text">Add your OS details here</div>
+            <!-- Example structure:
+            <div class="item"><span class="spec-label">Primary:</span> Arch Linux</div>
+            <div class="item"><span class="spec-label">Desktop:</span> i3-gaps</div>
+            <div class="item"><span class="spec-label">Shell:</span> zsh with oh-my-zsh</div>
+            -->
           </div>
         </div>
         
-        <!-- Development Tools Card -->
-        <div class="card">
-          <h3><i class="fas fa-tools"></i> Development Tools</h3>
-          <div class="card-content">
-            <ul class="spec-list">
-              <li><span class="spec-label">Editor:</span> <span class="spec-value">Neovim / VS Code</span></li>
-              <li><span class="spec-label">Terminal:</span> <span class="spec-value">Alacritty</span></li>
-              <li><span class="spec-label">Version Control:</span> <span class="spec-value">Git + GitHub</span></li>
-              <li><span class="spec-label">Containers:</span> <span class="spec-value">Docker + Kubernetes</span></li>
-              <li><span class="spec-label">Languages:</span> <span class="spec-value">Python, JavaScript, Rust</span></li>
-            </ul>
+        <!-- Development Tools Section -->
+        <div class="section">
+          <div class="section-title">
+            <i class="fas fa-tools"></i>
+            Development Tools
+          </div>
+          <div class="section-content">
+            <div class="placeholder-text">Add your development tools here</div>
+            <!-- Example structure:
+            <div class="item"><span class="spec-label">Editor:</span> Neovim</div>
+            <div class="item"><span class="spec-label">Terminal:</span> Alacritty</div>
+            <div class="item"><span class="spec-label">Version Control:</span> Git</div>
+            <div class="item"><span class="spec-label">Languages:</span> Python, JavaScript, Rust</div>
+            -->
           </div>
         </div>
         
-        <!-- Services & Applications Card -->
-        <div class="card">
-          <h3><i class="fas fa-cloud"></i> Self-Hosted Services</h3>
-          <div class="card-content">
-            <ul class="spec-list">
-              <li><span class="spec-label">Media:</span> <span class="spec-value">Plex, Jellyfin</span></li>
-              <li><span class="spec-label">Automation:</span> <span class="spec-value">Home Assistant</span></li>
-              <li><span class="spec-label">Monitoring:</span> <span class="spec-value">Grafana, Prometheus</span></li>
-              <li><span class="spec-label">Storage:</span> <span class="spec-value">Nextcloud</span></li>
-              <li><span class="spec-label">VPN:</span> <span class="spec-value">WireGuard</span></li>
-            </ul>
+        <!-- Applications Section -->
+        <div class="section">
+          <div class="section-title">
+            <i class="fas fa-laptop-code"></i>
+            Daily Applications
+          </div>
+          <div class="section-content">
+            <div class="placeholder-text">Add your daily applications here</div>
+            <!-- Example structure:
+            <div class="item"><span class="spec-label">Browser:</span> Firefox</div>
+            <div class="item"><span class="spec-label">Notes:</span> Obsidian</div>
+            <div class="item"><span class="spec-label">Music:</span> Spotify</div>
+            <div class="item"><span class="spec-label">Communication:</span> Discord, Slack</div>
+            -->
           </div>
         </div>
       </div>
@@ -473,17 +431,14 @@
   </div>
 
   <script>
-    // Preload the background image
     const bgImage = new Image();
-    bgImage.src = '/woods.jpg';
+    bgImage.src = 'https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80';
     
     bgImage.onload = function() {
       document.body.classList.add('loaded');
-      const loadingIndicator = document.getElementById('loadingIndicator');
-      loadingIndicator.classList.add('hidden');
+      document.getElementById('loadingIndicator').classList.add('hidden');
     };
     
-    // Fallback in case image loading takes too long
     setTimeout(function() {
       document.body.classList.add('loaded');
       document.getElementById('loadingIndicator').classList.add('hidden');
