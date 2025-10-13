@@ -137,6 +137,54 @@
       backdrop-filter: blur(5px);
     }
     
+    /* Profile Picture Bubble */
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      background: rgba(40, 40, 40, 0.8);
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: scale(0.5);
+      filter: blur(10px);
+      animation: popIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s forwards;
+      box-shadow: 0 0 20px rgba(250, 189, 47, 0.3),
+                  inset 0 0 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4em;
+      color: var(--accent);
+      overflow: hidden;
+    }
+    
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+        filter: blur(10px);
+      }
+      60% {
+        transform: scale(1.1);
+        filter: blur(2px);
+      }
+      80% {
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+      }
+    }
+    
     /* Glitch Text Container */
     .glitch-list {
       display: flex;
@@ -300,6 +348,10 @@
         font-size: 0.9em;
       }
       
+      .profile-pic {
+        font-size: 3em;
+      }
+      
       .glitch-text {
         font-size: 1.2em;
       }
@@ -347,10 +399,17 @@
   
   <!-- Main Content -->
   <div class="content">
+    <!-- Profile Picture Bubble -->
+    <div class="profile-pic">
+      <img src="https://picsum.photos/150" alt="Profile">
+    </div>
+    
     <div class="glitch-list">
-      <div class="glitch-text">Email: contact@djstill.me</div>
+      <div class="glitch-text">contact@djstill.me</div>
       <div class="glitch-text">GitHub: djstillme</div>
       <div class="glitch-text">LinkedIn: derek-still</div>
+      <div class="glitch-text">Location: Michigan, US</div>
+      <div class="glitch-text">Open to opportunities</div>
     </div>
     
     <!-- Social Icons -->
