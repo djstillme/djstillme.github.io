@@ -6,7 +6,9 @@
   <title>Derek J. Still - Contact</title>
   <!-- Font Awesome for social media icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Preload critical images -->
   <link rel="preload" href="/woods.jpg" as="image">
+  <link rel="preload" href="images/pfp.JPG" as="image">
   <style>
     
     /* Quick glitch pulse at the end */
@@ -157,12 +159,32 @@
       font-size: 4em;
       color: var(--accent);
       overflow: hidden;
+      position: relative;
+    }
+    
+    /* Placeholder while image loads */
+    .profile-pic::before {
+      content: '\f007';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      font-size: 4em;
+      color: var(--accent);
+      opacity: 0.3;
     }
     
     .profile-pic img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .profile-pic img.loaded {
+      opacity: 1;
     }
     
     @keyframes popIn {
@@ -401,7 +423,7 @@
   <div class="content">
     <!-- Profile Picture Bubble -->
     <div class="profile-pic">
-      <img src="images/pfp.JPG" alt="Profile">
+      <img src="images/pfp.JPG" alt="Profile" id="profileImg">
     </div>
     
     <div class="glitch-list">
@@ -427,24 +449,42 @@
   </div>
 
   <script>
-    // Preload the background image
+    // Preload both images
     const bgImage = new Image();
-    bgImage.src = '/woods.jpg';
+    const profileImage = new Image();
+    let bgLoaded = false;
+    let profileLoaded = false;
     
+    // Check if both images are loaded
+    function checkAllLoaded() {
+      if (bgLoaded && profileLoaded) {
+        document.body.classList.add('loaded');
+        document.getElementById('loadingIndicator').classList.add('hidden');
+      }
+    }
+    
+    // Load background image
+    bgImage.src = '/woods.jpg';
     bgImage.onload = function() {
-      // Add loaded class to body to enable background image
-      document.body.classList.add('loaded');
-      
-      // Hide loading indicator
-      const loadingIndicator = document.getElementById('loadingIndicator');
-      loadingIndicator.classList.add('hidden');
+      bgLoaded = true;
+      checkAllLoaded();
     };
     
-    // Fallback in case image loading takes too long
+    // Load profile image with fade-in effect
+    const profileImg = document.getElementById('profileImg');
+    profileImage.src = 'images/pfp.JPG';
+    profileImage.onload = function() {
+      profileLoaded = true;
+      profileImg.classList.add('loaded');
+      checkAllLoaded();
+    };
+    
+    // Fallback timeout - hide loader after 2 seconds regardless
     setTimeout(function() {
       document.body.classList.add('loaded');
       document.getElementById('loadingIndicator').classList.add('hidden');
-    }, 3000);
+      profileImg.classList.add('loaded');
+    }, 2000);
   </script>
 </body>
 </html>
