@@ -3,25 +3,20 @@
 
 const galleryPhotos = [
   {
-    url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
-    caption: 'Mountain landscape at sunset',
-    date: '2024-03-15'
+    url: 'images/1.jpeg',
+    caption: '',
+    date: ''
   },
   {
-    url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800',
-    caption: 'Forest path in autumn',
-    date: '2024-02-28'
+    url: 'images/2.jpeg',
+    caption: '',
+    date: ''
   },
   {
-    url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800',
-    caption: 'Coastal scenery',
-    date: '2024-01-10'
+    url: 'images/3.JPG',
+    caption: '',
+    date: ''
   },
-  {
-    url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800',
-    caption: 'Misty valley view',
-    date: '2023-12-05'
-  }
 ];
 
 // Instructions:
