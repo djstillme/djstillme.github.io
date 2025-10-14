@@ -41,36 +41,6 @@ const galleryPhotos = [
     url: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800',
     caption: 'Tropical beach paradise',
     date: '2023-08-22'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800',
-    caption: 'Tropical beach paradise',
-    date: '2024-08-22'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800',
-    caption: 'Tropical beach paradise',
-    date: '2025-08-22'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800',
-    caption: 'Tropical beach paradise',
-    date: '2026-08-22'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800',
-    caption: 'Tropical beach paradise',
-    date: '2027-08-22'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800',
-    caption: 'Tropical beach paradise',
-    date: '2028-08-22'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800',
-    caption: 'Lake reflection',
-    date: '2023-07-14'
   }
 ];
 
