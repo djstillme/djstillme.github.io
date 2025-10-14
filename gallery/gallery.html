@@ -193,6 +193,108 @@
       min-height: 20px;
     }
     
+    .photo-date {
+      margin-top: 5px;
+      font-size: 0.85em;
+      color: var(--accent);
+      opacity: 0.8;
+    }
+    
+    /* View Toggle Button */
+    .view-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(250, 189, 47, 0.2);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 10px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+    }
+    
+    .view-toggle:hover {
+      background: var(--accent);
+      color: #1a1a1a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(250, 189, 47, 0.4);
+    }
+    
+    /* Grid View */
+    .grid-view {
+      display: none;
+      max-width: 1200px;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    
+    .grid-view.active {
+      display: block;
+    }
+    
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .grid-item {
+      position: relative;
+      background: var(--bg);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 2px solid rgba(250, 189, 47, 0.2);
+    }
+    
+    .grid-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(250, 189, 47, 0.3);
+      border-color: var(--accent);
+    }
+    
+    .grid-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .grid-item-info {
+      padding: 12px;
+      background: rgba(40, 40, 40, 0.9);
+    }
+    
+    .grid-item-caption {
+      color: var(--fg);
+      font-size: 0.85em;
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .grid-item-date {
+      color: var(--accent);
+      font-size: 0.75em;
+      opacity: 0.8;
+    }
+    
+    /* Hide single view when grid is active */
+    .photo-display.hidden {
+      display: none;
+    }
+    
     /* Loading Spinner */
     .loading-spinner {
       position: absolute;
@@ -263,7 +365,14 @@
     <h1 class="gallery-title">Photo Gallery</h1>
     <p class="gallery-subtitle">Navigate through the collection</p>
     
-    <div class="photo-display">
+    <!-- View Toggle Button -->
+    <button class="view-toggle" id="viewToggle">
+      <i class="fas fa-th" id="toggleIcon"></i>
+      <span id="toggleText">Grid View</span>
+    </button>
+    
+    <!-- Single Photo View -->
+    <div class="photo-display" id="photoDisplay">
       <div class="photo-wrapper" id="photoWrapper">
         <div class="loading-spinner" id="loadingSpinner">
           <i class="fas fa-spinner fa-spin"></i>
@@ -272,6 +381,7 @@
       </div>
       
       <div class="photo-info" id="photoInfo"></div>
+      <div class="photo-date" id="photoDate"></div>
       
       <div class="nav-buttons">
         <button class="nav-btn" id="prevBtn">
@@ -289,6 +399,11 @@
         </button>
       </div>
     </div>
+    
+    <!-- Grid View -->
+    <div class="grid-view" id="gridView">
+      <div class="grid-container" id="gridContainer"></div>
+    </div>
   </div>
 
   <script>
@@ -296,34 +411,76 @@
     const photos = [
       {
         url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
-        caption: 'Mountain landscape at sunset'
+        caption: 'Mountain landscape at sunset',
+        date: '2024-03-15'
       },
       {
         url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800',
-        caption: 'Forest path in autumn'
+        caption: 'Forest path in autumn',
+        date: '2024-02-28'
       },
       {
         url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800',
-        caption: 'Coastal scenery'
+        caption: 'Coastal scenery',
+        date: '2024-01-10'
       },
       {
         url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800',
-        caption: 'Misty valley view'
+        caption: 'Misty valley view',
+        date: '2023-12-05'
       },
       {
         url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800',
-        caption: 'Desert landscape'
+        caption: 'Desert landscape',
+        date: '2023-11-20'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800',
+        caption: 'Mountain road adventure',
+        date: '2023-10-15'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800',
+        caption: 'Alpine wilderness',
+        date: '2023-09-08'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800',
+        caption: 'Tropical beach paradise',
+        date: '2023-08-22'
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800',
+        caption: 'Lake reflection',
+        date: '2023-07-14'
       }
     ];
     
     let currentIndex = 0;
+    let isGridView = false;
     
     const photoImg = document.getElementById('currentPhoto');
     const photoInfo = document.getElementById('photoInfo');
+    const photoDate = document.getElementById('photoDate');
     const photoCounter = document.getElementById('photoCounter');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const loadingSpinner = document.getElementById('loadingSpinner');
+    const viewToggle = document.getElementById('viewToggle');
+    const toggleIcon = document.getElementById('toggleIcon');
+    const toggleText = document.getElementById('toggleText');
+    const photoDisplay = document.getElementById('photoDisplay');
+    const gridView = document.getElementById('gridView');
+    const gridContainer = document.getElementById('gridContainer');
+    
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    }
     
     function loadPhoto(index) {
       loadingSpinner.style.display = 'block';
@@ -331,6 +488,7 @@
       
       const photo = photos[index];
       photoInfo.textContent = photo.caption || '';
+      photoDate.textContent = photo.date ? formatDate(photo.date) : '';
       photoCounter.textContent = `${index + 1} / ${photos.length}`;
       
       const img = new Image();
@@ -344,6 +502,47 @@
       // Update button states
       prevBtn.disabled = index === 0;
       nextBtn.disabled = index === photos.length - 1;
+    }
+    
+    function buildGridView() {
+      gridContainer.innerHTML = '';
+      
+      photos.forEach((photo, index) => {
+        const gridItem = document.createElement('div');
+        gridItem.className = 'grid-item';
+        gridItem.onclick = () => {
+          currentIndex = index;
+          toggleView();
+          loadPhoto(currentIndex);
+        };
+        
+        gridItem.innerHTML = `
+          <img src="${photo.url}" alt="${photo.caption || 'Gallery photo'}">
+          <div class="grid-item-info">
+            <div class="grid-item-caption">${photo.caption || 'Untitled'}</div>
+            <div class="grid-item-date">${photo.date ? formatDate(photo.date) : ''}</div>
+          </div>
+        `;
+        
+        gridContainer.appendChild(gridItem);
+      });
+    }
+    
+    function toggleView() {
+      isGridView = !isGridView;
+      
+      if (isGridView) {
+        photoDisplay.classList.add('hidden');
+        gridView.classList.add('active');
+        toggleIcon.className = 'fas fa-image';
+        toggleText.textContent = 'Single View';
+        buildGridView();
+      } else {
+        photoDisplay.classList.remove('hidden');
+        gridView.classList.remove('active');
+        toggleIcon.className = 'fas fa-th';
+        toggleText.textContent = 'Grid View';
+      }
     }
     
     function showNext() {
@@ -363,13 +562,19 @@
     // Event listeners
     prevBtn.addEventListener('click', showPrevious);
     nextBtn.addEventListener('click', showNext);
+    viewToggle.addEventListener('click', toggleView);
     
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowLeft') {
-        showPrevious();
-      } else if (e.key === 'ArrowRight') {
-        showNext();
+      if (!isGridView) {
+        if (e.key === 'ArrowLeft') {
+          showPrevious();
+        } else if (e.key === 'ArrowRight') {
+          showNext();
+        }
+      }
+      if (e.key === 'g' || e.key === 'G') {
+        toggleView();
       }
     });
     
