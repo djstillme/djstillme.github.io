@@ -157,8 +157,8 @@
       display: block;
       border-radius: 5px;
       opacity: 0;
-      transition: opacity 0.3s ease, transform 0.4s ease;
       position: absolute;
+      transform: translateX(0);
     }
     
     .photo-wrapper img.loaded {
@@ -179,6 +179,11 @@
     
     .photo-wrapper img.slide-in-right {
       animation: slideInRight 0.4s ease forwards;
+    }
+    
+    .photo-wrapper img.settled {
+      transform: translateX(0);
+      opacity: 1;
     }
     
     @keyframes slideOutLeft {
@@ -641,10 +646,16 @@
         loadingSpinner.style.display = 'none';
         
         // Remove all animation classes
-        photoImg.classList.remove('loaded', 'slide-out-left', 'slide-out-right', 'slide-in-left', 'slide-in-right');
+        photoImg.classList.remove('loaded', 'slide-out-left', 'slide-out-right', 'slide-in-left', 'slide-in-right', 'settled');
+        
+        // Reset transform explicitly
+        photoImg.style.transform = '';
         
         // Set new image (should be preloaded)
         photoImg.src = photo.url;
+        
+        // Force a reflow to ensure clean state
+        void photoImg.offsetWidth;
         
         // Add slide-in animation
         if (actualDirection === 'next') {
@@ -655,9 +666,10 @@
         
         photoImg.classList.add('loaded');
         
-        // Clean up animation classes after animation completes
+        // Clean up animation classes after animation completes and set settled state
         setTimeout(() => {
           photoImg.classList.remove('slide-in-left', 'slide-in-right');
+          photoImg.classList.add('settled');
           isTransitioning = false;
         }, 400);
         
