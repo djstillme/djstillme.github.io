@@ -561,6 +561,7 @@
     let isGridView = false;
     let isTransitioning = false;
     let direction = 'next'; // 'next' or 'prev'
+    let preloadedImages = {}; // Cache for preloaded images
     
     const photoImg = document.getElementById('currentPhoto');
     const photoInfo = document.getElementById('photoInfo');
@@ -584,11 +585,33 @@
       });
     }
     
+    // Preload adjacent images
+    function preloadAdjacentImages(index) {
+      // Preload next image
+      if (index < photos.length - 1 && !preloadedImages[index + 1]) {
+        const nextImg = new Image();
+        nextImg.src = photos[index + 1].url;
+        preloadedImages[index + 1] = nextImg;
+      }
+      
+      // Preload previous image
+      if (index > 0 && !preloadedImages[index - 1]) {
+        const prevImg = new Image();
+        prevImg.src = photos[index - 1].url;
+        preloadedImages[index - 1] = prevImg;
+      }
+      
+      // Preload current if not already
+      if (!preloadedImages[index]) {
+        const currImg = new Image();
+        currImg.src = photos[index].url;
+        preloadedImages[index] = currImg;
+      }
+    }
+    
     function loadPhoto(index, slideDirection = null) {
       if (isTransitioning) return;
       isTransitioning = true;
-      
-      loadingSpinner.style.display = 'block';
       
       const photo = photos[index];
       photoInfo.textContent = photo.caption || '';
@@ -605,37 +628,42 @@
         } else {
           photoImg.classList.add('slide-out-right');
         }
+        
+        // Wait for slide-out animation
+        setTimeout(() => {
+          updateImage();
+        }, 400);
+      } else {
+        updateImage();
       }
       
-      // Preload new image
-      const img = new Image();
-      img.onload = function() {
-        // Wait for slide-out animation to complete
+      function updateImage() {
+        loadingSpinner.style.display = 'none';
+        
+        // Remove all animation classes
+        photoImg.classList.remove('loaded', 'slide-out-left', 'slide-out-right', 'slide-in-left', 'slide-in-right');
+        
+        // Set new image (should be preloaded)
+        photoImg.src = photo.url;
+        
+        // Add slide-in animation
+        if (actualDirection === 'next') {
+          photoImg.classList.add('slide-in-right');
+        } else {
+          photoImg.classList.add('slide-in-left');
+        }
+        
+        photoImg.classList.add('loaded');
+        
+        // Clean up animation classes after animation completes
         setTimeout(() => {
-          // Remove all animation classes
-          photoImg.classList.remove('loaded', 'slide-out-left', 'slide-out-right', 'slide-in-left', 'slide-in-right');
-          
-          // Set new image
-          photoImg.src = photo.url;
-          
-          // Add slide-in animation
-          if (actualDirection === 'next') {
-            photoImg.classList.add('slide-in-right');
-          } else {
-            photoImg.classList.add('slide-in-left');
-          }
-          
-          loadingSpinner.style.display = 'none';
-          photoImg.classList.add('loaded');
-          
-          // Clean up animation classes after animation completes
-          setTimeout(() => {
-            photoImg.classList.remove('slide-in-left', 'slide-in-right');
-            isTransitioning = false;
-          }, 400);
-        }, photoImg.classList.contains('loaded') ? 400 : 0);
-      };
-      img.src = photo.url;
+          photoImg.classList.remove('slide-in-left', 'slide-in-right');
+          isTransitioning = false;
+        }, 400);
+        
+        // Preload adjacent images for smooth navigation
+        preloadAdjacentImages(index);
+      }
       
       // Update button states
       prevBtn.disabled = index === 0;
@@ -756,6 +784,9 @@
     
     // Load first photo
     loadPhoto(currentIndex);
+    
+    // Preload first few images on page load
+    preloadAdjacentImages(0);
   </script>
   
   <script>
