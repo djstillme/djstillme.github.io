@@ -21,26 +21,6 @@ const galleryPhotos = [
     url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800',
     caption: 'Misty valley view',
     date: '2023-12-05'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800',
-    caption: 'Desert landscape',
-    date: '2023-11-20'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800',
-    caption: 'Mountain road adventure',
-    date: '2023-10-15'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800',
-    caption: 'Alpine wilderness',
-    date: '2023-09-08'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800',
-    caption: 'Tropical beach paradise',
-    date: '2023-08-22'
   }
 ];
 
